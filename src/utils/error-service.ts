@@ -38,6 +38,14 @@ export function errorHandler(err: any, req: Request, res: Response, next: NextFu
   next();
 }
 
+export function error404(req: Request, res: Response) {
+  return res.status(404).send({
+    message: 'Invalid route passed.',
+    status: 'error',
+    data: null
+  });
+}
+
 export function catchAsync(controllerFunction: any) {
   return (req: Request, res: Response, next: NextFunction) => {
     controllerFunction(req, res, next).catch(next);
