@@ -1,5 +1,5 @@
 import app from './app';
-import logger = require('./src//utils/logger');
+import logger = require('./src/utils/logger');
 
 const processPort = process.env.NODE_PORT ?? '3000';
 const PORT = parseInt(processPort, 10);

@@ -85,7 +85,7 @@ export const validateToken = function (req: any, res: Response, next: NextFuncti
   const bearer = bearerHeader.split(' ');
   const [, token] = bearer;
   req.token = token;
-  jwt.verify(req.token, 'process.env.JWT_SECRET_KEY', (err: any, authData: any | null) => {
+  jwt.verify(req.token, process.env.JWT_SECRET_KEY, (err: any, authData: any | null) => {
     if (err) {
       throw new ErrorObject(400, err.toString());
     } else {

@@ -33,8 +33,3 @@ export const register = {
     })
   })
 };
-
-module.exports = {
-  login,
-  register
-};
