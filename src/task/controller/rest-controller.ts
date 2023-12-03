@@ -1,5 +1,5 @@
 import { Response, Request } from 'express';
-import { create, getSingle, getAll, update, count } from '../services/task';
+import { create, getSingle, getAll, update, count, getPending } from '../services/task';
 import { pick } from '../../utils/pick';
 import { paginationOptions, paginationData } from '../../utils/pagination';
 
@@ -40,6 +40,16 @@ export async function fetchOne(req: Request, res: Response) {
 export async function updateTask(req: Request, res: Response) {
   const filter = pick(req.query, ['id']);
   const task = await update({ ...filter, user: req.user }, req.body);
+  res.status(200).send({
+    message: 'Task updated successfully',
+    data: {
+      task
+    }
+  });
+}
+
+export async function pending(req: Request, res: Response) {
+  const task = await getPending();
   res.status(200).send({
     message: 'Task updated successfully',
     data: {

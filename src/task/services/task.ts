@@ -54,3 +54,27 @@ export const count = async (criteria: object) => {
     throw new ErrorObject(error.code || 500, error.message || error);
   }
 };
+
+export const getPending = async () => {
+  try {
+    const start = new Date();
+    start.setHours(0, 0, 0, 0);
+
+    const end = new Date();
+    end.setHours(23, 59, 59, 999);
+
+    const tasks = await Task.aggregate([
+      { $match: { dueDate: { $gte: start, $lt: end } } },
+      {
+        $group: {
+          _id: '$user',
+          count: { $sum: 1 }
+        }
+      }
+    ]);
+    await Task.populate(tasks, { path: 'user', model: 'User' });
+    return tasks;
+  } catch (error) {
+    throw new ErrorObject(error.code || 500, error.message || error);
+  }
+};
