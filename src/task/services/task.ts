@@ -22,9 +22,11 @@ export const getSingle = async (criteria: object) => {
   }
 };
 
-export const getAll = async (criteria: object) => {
+export const getAll = async (criteria: object, options: object) => {
   try {
-    const tasks = await Task.find({ ...criteria });
+    const tasks = await Task.find({ ...criteria })
+      .limit(options.limit)
+      .skip(options.limit * options.page);
     return JSON.parse(JSON.stringify(tasks));
   } catch (error) {
     throw new ErrorObject(error.code || 500, error.message || error);
@@ -40,6 +42,14 @@ export const update = async (criteria: object, data: any) => {
     Object.assign(task, data);
     await task.save();
     return JSON.parse(JSON.stringify(task));
+  } catch (error) {
+    throw new ErrorObject(error.code || 500, error.message || error);
+  }
+};
+
+export const count = async (criteria: object) => {
+  try {
+    return await Task.find(criteria).countDocuments();
   } catch (error) {
     throw new ErrorObject(error.code || 500, error.message || error);
   }

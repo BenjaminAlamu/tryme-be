@@ -21,7 +21,7 @@ export const create = {
     }),
     status: Joi.string()
       .valid('pending', 'in-progress', 'completed', 'deleted')
-      .required()
+      .optional()
       .messages({
         'any.empty': `Status cannot be an empty field`,
         'string.valid': `Invalid model passed`,

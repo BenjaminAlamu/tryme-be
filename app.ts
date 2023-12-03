@@ -1,5 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
+
 import { errorHandler, error404 } from './src/utils/error-service';
 
 import UserRoutes from './src/user/route';
@@ -9,6 +11,7 @@ dotenv.config();
 require('./src/config/mongoose');
 
 const app = express();
+app.use(cors('*'));
 app.use(express.json());
 
 app.use('/api/user', UserRoutes);

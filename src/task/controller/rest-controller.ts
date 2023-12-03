@@ -1,6 +1,7 @@
 import { Response, Request } from 'express';
-import { create, getSingle, getAll, update } from '../services/task';
+import { create, getSingle, getAll, update, count } from '../services/task';
 import { pick } from '../../utils/pick';
+import { paginationOptions, paginationData } from '../../utils/pagination';
 
 export async function createTask(req: Request, res: Response) {
   const task = await create({ ...req.body, user: req.user });
@@ -13,13 +14,15 @@ export async function createTask(req: Request, res: Response) {
 }
 
 export async function fetchAll(req: Request, res: Response) {
+  const options = paginationOptions(req);
   const filter = pick(req.query, ['status', 'priority']);
-  const tasks = await getAll({ ...filter, user: req.user });
+  const criteria = { ...filter, user: req.user };
+  const total = await count(criteria);
+  const tasks = await getAll(criteria, options);
+  const data = await paginationData(tasks, total, options);
   res.status(200).send({
     message: 'All tasks fetch successfully',
-    data: {
-      tasks
-    }
+    data
   });
 }
 
