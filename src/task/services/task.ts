@@ -47,6 +47,18 @@ export const update = async (criteria: object, data: any) => {
   }
 };
 
+export const deleteTask = async (criteria: object) => {
+  try {
+    const task = await Task.findOne({ ...criteria });
+    if (!task) {
+      throw new ErrorObject(404, 'Task not found');
+    }
+    return await Task.deleteOne({ ...criteria });
+  } catch (error) {
+    throw new ErrorObject(error.code || 500, error.message || error);
+  }
+};
+
 export const count = async (criteria: object) => {
   try {
     return await Task.find(criteria).countDocuments();
