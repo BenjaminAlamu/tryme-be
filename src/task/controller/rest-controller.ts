@@ -15,8 +15,9 @@ export async function createTask(req: Request, res: Response) {
 
 export async function fetchAll(req: Request, res: Response) {
   const options = paginationOptions(req);
+
   const filter = pick(req.query, ['status', 'priority']);
-  const { search } = req.query;
+  const { search = '' } = req.query;
   const criteria = { ...filter, user: req.user, title: { $regex: search, $options: 'i' } };
   const total = await count(criteria);
   const tasks = await getAll(criteria, options);
