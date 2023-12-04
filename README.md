@@ -22,3 +22,4 @@
 
 - A cron can be setup to notify users of all their pending tasks per day
 - A mini accountability group can also be created to keep people on their toes
+- Automated testing
