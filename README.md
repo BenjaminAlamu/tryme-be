@@ -16,4 +16,4 @@
 
 ## Useful Links
 
-- [API Documentation](https://narrative-task-api.herokuapp.com)
+- [API Documentation](https://documenter.getpostman.com/view/4530919/2s9YeK5qXB)

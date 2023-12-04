@@ -5,8 +5,7 @@
   "main": "main.ts",
   "scripts": {
     "start:dev": "ts-node main.ts",
-    "dev": "tsx watch main.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsx watch main.ts"
   },
   "author": "",
   "license": "ISC",
@@ -33,9 +32,12 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.3.1",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
+    "chai": "^4.3.10",
+    "chai-http": "^4.4.0",
     "cors": "^2.8.5",
     "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",

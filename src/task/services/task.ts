@@ -1,7 +1,13 @@
 import { Task } from '../model/task';
 import { ErrorObject } from '../../utils/error-service';
+import {
+  criteriaType,
+  paginationOptionsType,
+  editTaskType,
+  createTaskType
+} from '../../utils/types';
 
-export const create = async (data: any) => {
+export const create = async (data: createTaskType) => {
   try {
     const task = await Task.create(data);
     return JSON.parse(JSON.stringify(task));
@@ -10,7 +16,7 @@ export const create = async (data: any) => {
   }
 };
 
-export const getSingle = async (criteria: object) => {
+export const getSingle = async (criteria: criteriaType) => {
   try {
     const task = await Task.findOne({ ...criteria });
     if (!task) {
@@ -22,7 +28,7 @@ export const getSingle = async (criteria: object) => {
   }
 };
 
-export const getAll = async (criteria: object, options: object) => {
+export const getAll = async (criteria: criteriaType, options: paginationOptionsType) => {
   try {
     const tasks = await Task.find({ ...criteria })
       .limit(options.limit)
@@ -33,7 +39,7 @@ export const getAll = async (criteria: object, options: object) => {
   }
 };
 
-export const update = async (criteria: object, data: any) => {
+export const update = async (criteria: criteriaType, data: editTaskType) => {
   try {
     const task = await Task.findOne({ ...criteria });
     if (!task) {
@@ -47,7 +53,7 @@ export const update = async (criteria: object, data: any) => {
   }
 };
 
-export const deleteTask = async (criteria: object) => {
+export const deleteTask = async (criteria: criteriaType) => {
   try {
     const task = await Task.findOne({ ...criteria });
     if (!task) {
@@ -59,7 +65,7 @@ export const deleteTask = async (criteria: object) => {
   }
 };
 
-export const count = async (criteria: object) => {
+export const count = async (criteria: criteriaType) => {
   try {
     return await Task.find(criteria).countDocuments();
   } catch (error) {
